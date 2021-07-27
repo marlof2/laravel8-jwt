@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,7 +25,27 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
-    
+    /**
+     * Register a User.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function register(Request $request) {
+
+        $save = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' =>  bcrypt($request->password),
+        ];
+        $user = User::create($save);
+
+        return response()->json([
+            'message' => 'User successfully registered',
+            'user' => $user
+        ], 201);
+    }
+
+
 
     /**
      * Get the authenticated User.

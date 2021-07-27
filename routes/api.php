@@ -25,18 +25,16 @@ use App\Http\Middleware\JwtMiddleware;
 // });
 
 
-
-
 Route::group(['namespace' => 'Api', 'as' => 'api.'], function () {
-        Route::post('/auth/login',  [AuthController::class, 'login'])->name('auth.login');
+    Route::post('/auth/login', [AuthController::class, 'login'])->name('auth.login');
+    Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
 
-Route::group(['middleware' => 'jwt'], function () {
+    Route::group(['middleware' => 'jwt'], function () {
 
-    Route::post('/register', [AuthController::class, 'register']);
-        Route::post('/refresh',  [AuthController::class, 'refresh'])->name('auth.refresh');
-        Route::post('/auth/logout',  [AuthController::class, 'logout'])->name('auth.logout');
-        Route::post('/me',  [AuthController::class, 'me'])->name('auth.me');
-        Route::get('/users', [UserController::class, 'index'])->name('auth.index');
+        Route::post('/refresh', [AuthController::class, 'refresh'])->name('auth.refresh');
+        Route::post('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
+        Route::post('/me', [AuthController::class, 'me'])->name('auth.me');
+        Route::get('/users', [UserController::class, 'index'])->name('user.index');
         Route::get('/address', [AddressController::class, 'index'])->name('address.index');
         Route::get('/product', [ProductController::class, 'index'])->name('product.index');
     });
